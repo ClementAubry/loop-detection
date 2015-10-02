@@ -35,4 +35,5 @@ Makefile*
 
 #Saved images
 
-*.png
+savedImages/*
+
