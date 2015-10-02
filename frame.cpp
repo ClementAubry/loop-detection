@@ -333,6 +333,37 @@ void Frame::paintEvent(QPaintEvent * /*event*/)
       painter.drawLine(QPoint(xToPix(0),yToPix(0)),QPoint(xToPix(initDom[1].sup),yToPix(initDom[2].sup)));
       painter.setPen(lPen);
     }
+//  //Try to complete between Kalman points
+//  /**
+//    * 1) d'un point à un autre, compter le nombre de pixels
+//    * 2) from http://stackoverflow.com/questions/20655174/qt-how-do-i-make-a-field-of-2d-interpolated-colors
+//    * c00   -- x -->  c01
+
+//        |
+//        |
+//        y      c(x,y)
+//        |
+//        |
+//        V
+
+//      c10              c11
+//    *
+//    * c0=c(x,0)=c00+((c01-c00)*x)
+//    * c1=c(x,1)=c10+((c11-c10)*x)
+//    * c(x,y)   =c0 +((c1 -c0 )*y)
+//    *
+//    *
+//   */
+//  if (drawKalmanResults)
+//    {
+//      for(lp=this->kalmanPointList.begin(); lp != this->kalmanPointList.end(); ++lp){
+////          QPen myBoldPen(lp->color);
+////          myBoldPen.setWidth(lp->width);
+////          painter.setPen(myBoldPen);
+////          painter.drawPoint(QPoint(xToPix(lp->point.x()),yToPix(lp->point.y())));
+//        }
+//      painter.setPen(lPen);
+//    }
 }
 
 void Frame::wheelEvent(QWheelEvent * event)

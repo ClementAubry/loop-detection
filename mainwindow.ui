@@ -1,0 +1,670 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1209</width>
+    <height>722</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Loop Detection via Interval Analysis V10.1</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons/Loop.png</normaloff>icons/Loop.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout" rowstretch="1,0">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayoutTime" rowstretch="0,1,1,1,0" columnstretch="0,1,1,1">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item row="0" column="2">
+         <widget class="QLabel" name="timeTitleLbl">
+          <property name="text">
+           <string>t-plane : f(t1,t2)</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="t2MaxLabel">
+          <property name="text">
+           <string>t2Max</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" rowspan="3" colspan="3">
+         <widget class="QGraphicsView" name="timeGraph">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="accessibleName">
+           <string>TimeGraph</string>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="midLineWidth">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="t2MedLabel">
+          <property name="text">
+           <string>t2Med</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="t2MinLabel">
+          <property name="text">
+           <string>t2Min</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="t1MinLabel">
+          <property name="text">
+           <string>t1Min</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QLabel" name="t1MedLabel">
+          <property name="text">
+           <string>t1Med</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="QLabel" name="t1MaxLabel">
+          <property name="text">
+           <string>t1Max</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1">
+       <layout class="QGridLayout" name="gridLayoutPosition" rowstretch="0,1,1,1,0" columnstretch="0,1,1,1">
+        <item row="0" column="2">
+         <widget class="QLabel" name="posTitleLbl">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Position : [p([x],[y])](t)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="yMaxLabel_1">
+          <property name="text">
+           <string>yMax</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" rowspan="3" colspan="3">
+         <widget class="QGraphicsView" name="positionGraph">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="accessibleName">
+           <string>PosGraph</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="midLineWidth">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="yMedLabel_1">
+          <property name="text">
+           <string>yMed</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="yMinLabel_1">
+          <property name="text">
+           <string>yMin</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="xMinLabel_1">
+          <property name="text">
+           <string>xMin</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QLabel" name="xMedLabel_1">
+          <property name="text">
+           <string>xMed</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="QLabel" name="xMaxLabel_1">
+          <property name="text">
+           <string>xMax</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <widget class="QTextEdit" name="infoBox">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <layout class="QGridLayout" name="gridLayoutPosition_2" rowstretch="0,1,1,1,0" columnstretch="0,1,1,1">
+        <item row="0" column="2">
+         <widget class="QLabel" name="integralTitleLbl">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Integral Tubes</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="yMaxIntegralLbl">
+          <property name="text">
+           <string>yMax</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" rowspan="3" colspan="3">
+         <widget class="QGraphicsView" name="IntegralGraph">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="accessibleName">
+           <string>PosGraph</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="midLineWidth">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="yMedIntegralLbl">
+          <property name="text">
+           <string>yMed</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="yMinIntegralLbl">
+          <property name="text">
+           <string>yMin</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="xMinIntegralLbl">
+          <property name="text">
+           <string>xMin</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QLabel" name="xMedIntegralLbl">
+          <property name="text">
+           <string>xMed</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="QLabel" name="xMaxIntegralLbl">
+          <property name="text">
+           <string>xMax</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="controlDock">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>170</width>
+     <height>410</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>170</width>
+     <height>524287</height>
+    </size>
+   </property>
+   <property name="baseSize">
+    <size>
+     <width>170</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="features">
+    <set>QDockWidget::NoDockWidgetFeatures</set>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <widget class="QGroupBox" name="redermorModeGrpBx">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>161</width>
+       <height>191</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Redermor datas</string>
+     </property>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>141</width>
+        <height>163</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QSpinBox" name="nbPtRdrmrSpinBox">
+         <property name="minimum">
+          <number>5000</number>
+         </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+         <property name="singleStep">
+          <number>5000</number>
+         </property>
+         <property name="value">
+          <number>60000</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>dataStep : </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="dataStepSpinBox">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="value">
+            <number>100</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="drawBt">
+         <property name="text">
+          <string>Draw</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="loopBt">
+         <property name="text">
+          <string>Find Loop</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="saveButton">
+         <property name="text">
+          <string>Save Images</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>190</y>
+       <width>164</width>
+       <height>301</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Axis settings</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QPushButton" name="clearButton">
+        <property name="text">
+         <string>Clear</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="resetButton">
+        <property name="text">
+         <string>Reset</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="drawBoxCenterChkBox">
+        <property name="text">
+         <string>Draw positions</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="drawRectChk">
+        <property name="text">
+         <string>Draw subpaving</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="drawDiagonalcheckBox">
+        <property name="text">
+         <string>Draw noDelay</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="grayScaleChkBox">
+        <property name="text">
+         <string>Grayscale</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="newtonCheckBox">
+        <property name="text">
+         <string>Newton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kalmanCheckBox">
+        <property name="text">
+         <string>Kalman</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="plotEnsemblisteCheckBox">
+        <property name="text">
+         <string>Ensembliste</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>seuilDist</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="seuilDistKalmanStepSpinBox">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="value">
+           <number>150</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QToolButton" name="newtonToolButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>590</y>
+       <width>131</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>icons/newtonTest.png</normaloff>icons/newtonTest.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>530</y>
+       <width>128</width>
+       <height>42</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QToolButton" name="zoomInToolButton">
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/zoom_in_512.png</normaloff>icons/zoom_in_512.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="zoomResetToolButton">
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/zoom_reset.png</normaloff>icons/zoom_reset.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="zoomOutToolButton">
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/zoom_out_512.png</normaloff>icons/zoom_out_512.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1209</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

@@ -77,9 +77,7 @@ private slots:
     void drawDataClicked();
     //compute and draw LDKalman by euclidean distance
     void computeKalmanTPlaneDist();
-    void computeKalmanTPlaneDistSeuil();
     void computeKalmanTPlaneDistSeuilSeeDelay();
-    void computeKalmanTPlaneDistNormalized();
 
     //reset axis to priors domains of each graphs
     void resetAxes();

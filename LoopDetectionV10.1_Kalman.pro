@@ -3,11 +3,20 @@
 # -------------------------------------------------
 ##############################
 #
-#Added : On affiche l'image résultat de LDKalman obtenu par matlab (../matlab/slam_modifClem_script2.m)
+#Added : On affiche l'image rï¿½sultat de LDKalman obtenu par matlab (../matlab/slam_modifClem_script2.m)
 #
 ##############################
+
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 TARGET = LoopDetectionV10.1_Kalman
+
 TEMPLATE = app
+
+FORMS += mainwindow.ui
+
 SOURCES += main.cpp \
     mainwindow.cpp \
     frame.cpp \
@@ -16,6 +25,7 @@ SOURCES += main.cpp \
     interval/iboolean.cpp \
     interval/box.cpp \
     interval/scalarTube.cpp
+
 HEADERS += mainwindow.h \
     frame.h \
     loopdetector.h \
@@ -24,7 +34,6 @@ HEADERS += mainwindow.h \
     interval/box.h \
     interval/scalarTube.h \
     utils.h
-FORMS += mainwindow.ui
 
 OTHER_FILES += \
     icons/zoom_reset.png \

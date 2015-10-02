@@ -30,9 +30,9 @@ public:
 
     Interval                  intervalEvaluation(unsigned int, unsigned int);
     Interval                  fastIntervalEvaluation(unsigned int, unsigned int);
-    ScalarTube            	  timeIntegration(void);
-    ScalarTube                timeIntegrationTube(unsigned  int,unsigned  int);
-    ScalarTube                timeIntegrationTubeLessData(unsigned  int,unsigned  int, unsigned int);
+    ScalarTube            timeIntegration(void);
+    ScalarTube            timeIntegrationTube(unsigned  int,unsigned  int);
+    ScalarTube            timeIntegrationTubeLessData(unsigned  int,unsigned  int, unsigned int);
     Interval                  timeIntegration(unsigned  int,unsigned  int);
     Interval                  boundedTimeIntegration(ScalarTube&,unsigned  int,unsigned  int,unsigned  int,unsigned  int);
     Interval                  fastBoundedTimeIntegration(ScalarTube&,unsigned  int,unsigned  int,unsigned  int,unsigned  int);
