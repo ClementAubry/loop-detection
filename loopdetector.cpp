@@ -161,3 +161,50 @@ Box LoopDetector::newtonTestMonoOcc(const Box & T)
     idN_T2.sup = pTubeDx->timeToIndex(N_t2.sup);
     return Box(idN_T1,idN_T2);
 }
+Box LoopDetector::topologicalDegreesTest(const Box & T, QTextEdit & pTextEdit, bool printJ)
+{
+    Interval dx_t1 = pTubeDx->fastIntervalEvaluation(T[1].inf,T[1].sup);
+    Interval dy_t1 = pTubeDy->fastIntervalEvaluation(T[1].inf,T[1].sup);
+    Interval dx_t2 = pTubeDx->fastIntervalEvaluation(T[2].inf,T[2].sup);
+    Interval dy_t2 = pTubeDy->fastIntervalEvaluation(T[2].inf,T[2].sup);
+    Interval mdx_t1 = -pTubeDx->fastIntervalEvaluation(T[1].inf,T[1].sup);
+    Interval mdx_t2 = -pTubeDx->fastIntervalEvaluation(T[2].inf,T[2].sup);
+    //    qDebug()<<"\n\t-dx_t1 : [ "<<mdx_t1.inf<<" , "<<mdx_t1.sup<<"] \t dy_t1 : [ "<<dy_t1.inf<<" , "<<dy_t1.sup<<"]";
+    //    qDebug()<<"\n\t-dx_t2 : [ "<<mdx_t2.inf<<" , "<<mdx_t2.sup<<"] \t dy_t2 : [ "<<dy_t2.inf<<" , "<<dy_t2.sup<<"]";
+    if(printJ){
+        pTextEdit.insertPlainText("\nJacobian : ");
+        pTextEdit.insertPlainText("\n\t-Vx_t1 : [ "+QString::number(mdx_t1.inf)+" , "+QString::number(mdx_t1.sup)+"] \t Vy_t1 : [ "+QString::number(dy_t1.inf)+" , "+QString::number(dy_t1.sup)+"]");
+        pTextEdit.insertPlainText("\n\t-Vx_t2 : [ "+QString::number(mdx_t2.inf)+" , "+QString::number(mdx_t2.sup)+"] \t Vy_t2 : [ "+QString::number(dy_t2.inf)+" , "+QString::number(dy_t2.sup)+"]");
+    }
+    //Compute the jacobian, if contains 0, we can't prove unicity
+    Interval jacobien =  dy_t1 * dx_t2 - dx_t1 * dy_t2;
+    if(printJ){
+        pTextEdit.insertPlainText("\n\tdet(J)) : [ "+QString::number(jacobien.inf)+" , "+QString::number(jacobien.sup)+"]");
+    }
+    qDebug()<<"\njacobien : [ "<<jacobien.inf<<" , "<<jacobien.sup<<"]";
+    //if the jacobian do not contains 0, it exist 0 or 1 solution in the t-box we're testing
+    if (Interval(0).isIn(jacobien) != ifalse){
+        qDebug()<<"Jacobian contains 0, Can't prove unicity";
+        return Box();
+    }
+
+    //Choose a t1, t2 in [t1], [t2]
+    int k1c = T[1].centerInt();
+    int k2c = T[2].centerInt();
+    //compute integral of velocity tubes from t1c to t2c
+    Interval integralDx_t1c_t2c = pTubeDx->timeIntegration(k1c,k2c);
+    Interval integralDy_t1c_t2c = pTubeDy->timeIntegration(k1c,k2c);
+    //    qDebug()<<"\nintegralDx_t1c_t2c : [ "<<integralDx_t1c_t2c.inf<<" , "<<integralDx_t1c_t2c.sup<<"]";
+    //    qDebug()<<"\nintegralDy_t1c_t2c : [ "<<integralDy_t1c_t2c.inf<<" , "<<integralDy_t1c_t2c.sup<<"]";
+    //Compute Newton operator
+    //    qDebug()<<"\nJacobian : [[ "<<a.inf<<" , "<<a.sup<<"] , [ "<<b.inf<<" , "<<b.sup<<"] ; [ "<<c.inf<<" , "<<c.sup<<"] , [ "<<d.inf<<" , "<<d.sup<<"] ]";
+    Interval N_t1 = k1c*pTubeDx->dt - 1/jacobien * (dy_t2 * integralDx_t1c_t2c - dx_t2 * integralDy_t1c_t2c);
+    Interval N_t2 = k2c*pTubeDx->dt - 1/jacobien * (dy_t1 * integralDx_t1c_t2c - dx_t1 * integralDy_t1c_t2c);
+    //Transform the dicrete time values in tube indexes (to be coherent)
+    Interval idN_T1,idN_T2;
+    idN_T1.inf = pTubeDx->timeToIndex(N_t1.inf);
+    idN_T1.sup = pTubeDx->timeToIndex(N_t1.sup);
+    idN_T2.inf = pTubeDx->timeToIndex(N_t2.inf);
+    idN_T2.sup = pTubeDx->timeToIndex(N_t2.sup);
+    return Box(idN_T1,idN_T2);
+}

@@ -20,6 +20,7 @@ public:
     LoopDetector(const double & , ScalarTube *, ScalarTube *, ScalarTube *, ScalarTube *);
     Box newtonTest(const Box & T, QTextEdit &pTextEdit, bool printJ = true);
     Box newtonTestMonoOcc(const Box & T);
+    Box topologicalDegreesTest(const Box & T, QTextEdit &pTextEdit, bool printJ = true);
 
     //Methods
     void resolve(void);

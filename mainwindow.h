@@ -106,6 +106,8 @@ private slots:
 
     void on_plotEnsemblisteCheckBox_clicked();
 
+    void on_toposDegToolButton_clicked();
+
 private:
     //Main window
     Ui::MainWindow *ui;
@@ -151,6 +153,7 @@ private:
     bool zoomInActive;
     bool zoomOutActive;
     bool newtonToolBtActive;
+    bool topoDegBtActive;
 
 };
 

@@ -375,7 +375,8 @@ void MainWindow::mousePressEvent(QMouseEvent * event)
         if (event->button() == Qt::LeftButton &&
                 (event->modifiers() == Qt::ControlModifier ||
                  event->modifiers() == Qt::ShiftModifier ||
-                 zoomInActive || zoomOutActive || newtonToolBtActive))
+                 event->modifiers() == Qt::AltModifier ||
+                 zoomInActive || zoomOutActive || newtonToolBtActive || topoDegBtActive))
         {
             selectingBox = true;
             movingPlane = false;
@@ -412,6 +413,39 @@ void MainWindow::mouseReleaseEvent(QMouseEvent * event)
             ui->zoomOutToolButton->setDown(false);
             zoomOutActive = false;
         }else if ((event->modifiers() == Qt::ShiftModifier || newtonToolBtActive) && selectingBox){
+            ui->infoBox->insertPlainText("\n----------------------------------------------------------");
+            ui->infoBox->insertPlainText("\nTesting t-box [t] = (["+QString::number(T[1].inf*pTubeDx->dt,'f',1)+";"+QString::number(pTubeDx->dt+T[1].sup*pTubeDx->dt,'f',1)+"]["+QString::number(T[2].inf*pTubeDx->dt,'f',1)+";"+QString::number(pTubeDx->dt+T[2].sup*pTubeDx->dt,'f',1)+"]");
+            plotTime->plotNewtonTestedBox(T,NTested);
+            plotTime->update();
+            //If the box don't respect the condition t2 > t1, no need of Newton test
+            Interval RMoins = Interval(-oo,0);
+            if ((t2 - t1).isIn(RMoins) != ifalse){
+                ui->infoBox->insertPlainText("\nLa boite testée ne respecte pas t2 > t1.");
+            }else{
+                //This box is now test by Newton
+                Box N = myLoopDetector->newtonTest(T, *ui->infoBox);
+                if ( !N.isEmpty() && N.isInInterior(T) == itrue ){//The Newton box is included in the selected t-box, it prove unicity and uniqueness
+                    ui->infoBox->insertPlainText("\nNewton([t])");
+                    ui->infoBox->insertPlainText("= ["+QString::number(N[1].inf*pTubeDx->dt,'f',1)+";"+QString::number(pTubeDx->dt+N[1].sup*pTubeDx->dt,'f',1)+"]["+QString::number(N[2].inf*pTubeDx->dt,'f',1)+";"+QString::number(pTubeDx->dt+N[2].sup*pTubeDx->dt,'f',1)+"] guarantee");
+                    plotTime->addNewtonBox(N, NPassed);
+                    plotTime->update();
+                }else{ //if newton is not ok but included in the t-plane
+                    Box intiDom = plotTime->getInitialDomain();
+                    if (!N.isEmpty() && N.isIn(intiDom) == itrue){
+                        ui->infoBox->insertPlainText("\nNewton(["+QString::number(T[1].inf*pTubeDx->dt,'f',1)+";"+QString::number(pTubeDx->dt+T[1].sup*pTubeDx->dt,'f',1)+"]["+QString::number(T[2].inf*pTubeDx->dt,'f',1)+";"+QString::number(pTubeDx->dt+T[2].sup*pTubeDx->dt,'f',1)+"])");
+                        ui->infoBox->insertPlainText("= ["+QString::number(N[1].inf*pTubeDx->dt,'f',1)+";"+QString::number(pTubeDx->dt+N[1].sup*pTubeDx->dt,'f',1)+"]["+QString::number(N[2].inf*pTubeDx->dt,'f',1)+";"+QString::number(pTubeDx->dt+N[2].sup*pTubeDx->dt,'f',1)+"] NO guarantee");
+                        plotTime->plotNewtonContractedBox(N,NResult);
+                        plotTime->update();
+                    }else{ //if Newton can't be computed (some times the jacobian can't be computed)
+                        ui->infoBox->insertPlainText("\nLe resultat de newton ne peut pas etre affiché pour la boite testée.");
+                        Box nullBox = Box();
+                        plotTime->plotNewtonContractedBox(nullBox,NResult);
+                        plotTime->update();
+                    }
+                }
+            }
+            selectingBox = false;
+        }else if ((event->modifiers() == Qt::AltModifier || topoDegBtActive) && selectingBox){
             ui->infoBox->insertPlainText("\n----------------------------------------------------------");
             ui->infoBox->insertPlainText("\nTesting t-box [t] = (["+QString::number(T[1].inf*pTubeDx->dt,'f',1)+";"+QString::number(pTubeDx->dt+T[1].sup*pTubeDx->dt,'f',1)+"]["+QString::number(T[2].inf*pTubeDx->dt,'f',1)+";"+QString::number(pTubeDx->dt+T[2].sup*pTubeDx->dt,'f',1)+"]");
             plotTime->plotNewtonTestedBox(T,NTested);
@@ -1019,4 +1053,15 @@ void MainWindow::on_plotEnsemblisteCheckBox_clicked()
 {
     plotTime->drawLDResults = ui->plotEnsemblisteCheckBox->isChecked();
     plotTime->update();
+}
+
+void MainWindow::on_toposDegToolButton_clicked()
+{
+    if (topoDegBtActive){
+        ui->toposDegToolButton->setDown(false);
+        topoDegBtActive = false;
+    }else{
+        ui->toposDegToolButton->setDown(true);
+        topoDegBtActive = true;
+    }
 }
